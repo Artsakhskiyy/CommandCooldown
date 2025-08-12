@@ -16,24 +16,34 @@ class Main extends PluginBase implements Listener {
 
     public function onEnable(): void {
         $this->saveDefaultConfig();
+        $this->checkConfigVersion();
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+    }
+
+    private function checkConfigVersion(): void {
+        $currentVersion = 1; // текущая версия конфига
+        $configVersion = (int) $this->getConfig()->get("config-version", 0);
+
+        if ($configVersion < $currentVersion) {
+            $this->getLogger()->warning("Your config.yml is outdated! Updating to the latest version...");
+            @rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config_old.yml");
+            $this->saveResource("config.yml", true);
+        }
     }
 
     public function onCommandEvent(CommandEvent $event): void {
         $sender = $event->getSender();
 
         if (!$sender instanceof Player) {
-            return; // Консоль кулдаун не касается
+            return;
         }
 
         $command = strtolower(explode(" ", $event->getCommand())[0]);
 
-        // Если игрок имеет право обхода кулдауна — выходим
         if ($sender->hasPermission("cooldown.commandcooldown")) {
             return;
         }
 
-        // Если команда в списке исключений — выходим
         $excluded = array_map("strtolower", $this->getConfig()->get("excluded-commands", []));
         if (in_array($command, $excluded, true)) {
             return;
@@ -41,7 +51,6 @@ class Main extends PluginBase implements Listener {
 
         $cooldownSeconds = (int) $this->getConfig()->get("cooldown-seconds", 5);
 
-        // Проверка на наличие кулдауна
         if (isset($this->cooldowns[$sender->getName()][$command])) {
             $lastUse = $this->cooldowns[$sender->getName()][$command];
             $remaining = $cooldownSeconds - (time() - $lastUse);
@@ -54,7 +63,6 @@ class Main extends PluginBase implements Listener {
             }
         }
 
-        // Запоминаем время последнего использования команды
         $this->cooldowns[$sender->getName()][$command] = time();
     }
 
