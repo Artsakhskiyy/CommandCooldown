@@ -1,0 +1,24 @@
+#      ___       __           __    __       __    _          
+#     / _ | ____/ /____ ___ _/ /__ / /  ___ / /__ (_)_ ____ __
+#    / __ |/ __/ __(_-</ _ `/  '_// _ \(_-</  '_// / // / // /
+#   /_/ |_/_/  \__/___/\_,_/_/\_\/_//_/___/_/\_\/_/\_, /\_, / 
+#                                                 /___//___/ 
+#
+# Config version - DO NOT CHANGE!
+config-version: 1
+
+# Cooldown time in seconds...
+# Default - 5 seconds...
+cooldown-seconds: 5
+
+# Commands that are not affected by cooldown...
+excluded-commands:
+  - cmd1
+  - cmd2
+
+# Messages...
+messages:
+  no-permission: "§l§2CommandCooldown » You do not have permission to use this command..."
+  usage: "§l§2CommandCooldown » Usage: /setcooldown <seconds>"
+  cooldown-updated: "§l§2CommandCooldown » Cooldown successfully changed to {seconds} seconds..."
+  cooldown-wait: "§l§2CommandCooldown » Please wait {seconds} seconds before using the command again..."
