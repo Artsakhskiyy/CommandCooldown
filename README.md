@@ -1,4 +1,4 @@
-## CommandCooldown
+# CommandCooldown
 A PocketMine-MP plugin that adds configurable cooldowns to commands...
 
 ## Features
