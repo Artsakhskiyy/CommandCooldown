@@ -1,0 +1,21 @@
+name: CommandCooldown
+main: Artsakhskiyy\CommandCooldown\Main
+version: 1.0.0
+api: 5.0.0
+author: Artsakhskiyy
+description: Plugin for setting cooldown on commands...
+
+commands:
+  setcooldown:
+    description: Change command cooldown time...
+    usage: /setcooldown <seconds>
+    permission: commandcooldown.set
+
+permissions:
+  commandcooldown.set:
+    description: Allows you to change the cooldown time...
+    default: op
+
+  commandcooldown.bypass:
+    description: Ignore cooldown...
+    default: op
